@@ -1,19 +1,28 @@
 #!/usr/bin/node
-module.exports = class Rectangle {
+class Rectangle {
   constructor (w, h) {
-    // If w or h is equal to 0 or not a positive integer, create empty object
     if (w > 0 && h > 0) {
       this.width = w;
       this.height = h;
     }
   }
 
-  print () {
+  print (c = 'X') {
     for (let i = 0; i < this.height; i++) {
-      for (let j = 0; j < this.width; j++) {
-        process.stdout.write('X');
-      }
-      if (i < this.height) { process.stdout.write('\n'); }
+      console.log(c.repeat(this.width));
     }
   }
-};
+
+  rotate () {
+    const temp = this.width;
+    this.width = this.height;
+    this.height = temp;
+  }
+
+  double () {
+    this.width *= 2;
+    this.height *= 2;
+  }
+}
+
+module.exports = Rectangle;
