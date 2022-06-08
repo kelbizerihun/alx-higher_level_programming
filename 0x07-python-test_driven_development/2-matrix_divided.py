@@ -1,33 +1,30 @@
 #!/usr/bin/python3
 """
-This module defines function to divide two list int a matrix
+This is the "2-matrix_divided" module.
+The 2-matrix_divided module supplies one function, matrix_divided(matrix, div).
 """
 
 
 def matrix_divided(matrix, div):
-        """
-        Divides list and Raises TypeError
-        """
-        if not isinstance(div, (int, float)):
-                raise TypeError("div must be a number")
-        elif div is 0:
-                raise ZeroDivisionError("division by zero")
-        typeErr = "matrix must be a matrix (list of lists) of integers/floats"
-        sizeErr = "Each row of the matrix must have the same size"
-        new = []
-        if matrix is None or len(matrix) is 0 or len(matrix[0]) is 0:
-                raise TypeError(typeErr)
-        old = len(matrix[0])
-        for count, y in enumerate(matrix):
-                if not isinstance(y, list):
-                        raise TypeError(typeErr)
-                if len(y) != old:
-                        raise TypeError(sizeErr)
-                old = len(y)
-                new.append(y[:])
-                for a, item in enumerate(y):
-                        if not isinstance(item, (int, float)):
-                                raise TypeError(typeErr)
-                        new[count][a] = round(item / div, 2)
-        else:
-                return (new)
+    """Divides all elements in the matrix by div"""
+    if type(matrix) is not list:
+        raise TypeError(
+            "matrix must be a matrix (list of lists) of integers/floats")
+    size = None
+    for l in matrix:
+        if type(l) is not list:
+            raise TypeError(
+                "matrix must be a matrix (list of lists) of integers/floats")
+        if size is None:
+            size = len(l)
+        elif size != len(l):
+            raise TypeError("Each row of the matrix must have the same size")
+        for i in l:
+            if type(i) is not int and type(i) is not float:
+                raise TypeError("matrix must be a matrix (list of lists) of \
+integers/floats")
+    if type(div) is not int and type(div) is not float:
+        raise TypeError("div must be a number")
+    if div == 0:
+        raise ZeroDivisionError("division by zero")
+    return [[round(i / div, 2) for i in l] for l in matrix]
